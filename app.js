@@ -4,9 +4,15 @@ import { mongodb } from "./src/helpers/mongodb";
 import { routes } from "./src/helpers/routes";
 let app = express();
 
-routes(app);
-
 let port = process.env.APP_PORT || 3000;
+app.use(express.json({ limit: "50mb" }));
+app.use(
+  express.urlencoded({
+    extended: false,
+    limit: "50mb",
+  })
+);
+routes(app);
 
 mongodb()
   .then(() => {

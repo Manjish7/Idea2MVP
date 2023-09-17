@@ -15,7 +15,6 @@ class ProductController {
         product,
       });
     } catch (error) {
-      console.log(error.message);
       res.json({
         status: false,
         message: error.message,
@@ -33,7 +32,6 @@ class ProductController {
         product,
       });
     } catch (error) {
-      console.log(error.message);
       res.json({
         status: false,
         message: error.message,
@@ -49,7 +47,6 @@ class ProductController {
         products,
       });
     } catch (error) {
-      console.log(error.message);
       res.json({
         status: false,
         message: error.message,
@@ -68,7 +65,6 @@ class ProductController {
         product,
       });
     } catch (error) {
-      console.log(error.message);
       res.json({
         status: false,
         message: error.message,
@@ -84,7 +80,6 @@ class ProductController {
         product,
       });
     } catch (error) {
-      console.log(error.message);
       res.json({
         status: false,
         message: error.message,

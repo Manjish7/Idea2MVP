@@ -27,10 +27,10 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
-productSchema.methods.toJSON = () => {
-  const product = this.toObject();
-  delete product.__v;
-  return product;
-};
+// productSchema.methods.toJSON = () => {
+//   const product = this.toObject();
+//   delete product.__v;
+//   return product;
+// };
 
 export const Product = mongoose.model("Product", productSchema);

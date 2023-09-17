@@ -1,6 +1,5 @@
 class IndexService {
   static sayHello = () => {
-    console.log("Reached");
     return "Hello";
   };
 }

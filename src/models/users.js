@@ -42,10 +42,4 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-userSchema.methods.toJSON = () => {
-  const user = this.toObject();
-  delete user.__v;
-  return user;
-};
-
 export const User = mongoose.model("User", userSchema);
