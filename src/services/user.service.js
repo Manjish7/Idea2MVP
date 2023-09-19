@@ -19,7 +19,7 @@ class UserService {
   static login = async (data) => {
     try {
       const user = await User.findOne({ username: data.username }).select(
-        "-__v -updatedAt"
+        "_id username password firstname lastname email role"
       );
       if (!user) throw new Error("User with this credentials doesn't exists");
       if (!comparePasswordHash(data.password, user.password))
@@ -32,6 +32,30 @@ class UserService {
       return { username, role, accessToken };
     } catch (error) {
       throw new Error("Failed to login: " + error.message);
+    }
+  };
+
+  static me = async (user_id) => {
+    try {
+      const user = await User.findById(user_id).select(
+        "-__v -updatedAt -createdAt -password"
+      );
+      return user;
+    } catch (error) {
+      throw new Error("Failed to get user details : " + error.message);
+    }
+  };
+
+  static update = async (user_id, data) => {
+    try {
+      const updatedUser = await User.findByIdAndUpdate(
+        user_id,
+        { $set: data },
+        { new: true }
+      ).select("-_id -__v -updatedAt -createdAt -password");
+      return updatedUser;
+    } catch (error) {
+      throw new Error("Failed to update user details : " + error.message);
     }
   };
 }

@@ -32,6 +32,38 @@ class UserController {
       });
     }
   };
+
+  static me = async (req, res) => {
+    try {
+      const user = await UserService.me(req.user._id);
+      res.json({
+        success: true,
+        message: "Fetched user details",
+        user,
+      });
+    } catch (error) {
+      res.json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  static update = async (req, res) => {
+    try {
+      const updatedUser = await UserService.update(req.user._id, req.body);
+      res.json({
+        success: true,
+        message: "Updated User Details",
+        user: updatedUser,
+      });
+    } catch (error) {
+      res.json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
 }
 
 export default UserController;
