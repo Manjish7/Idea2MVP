@@ -2,6 +2,7 @@ require("dotenv").config();
 import express from "express";
 import { mongodb } from "./src/helpers/mongodb";
 import { routes } from "./src/helpers/routes";
+import { handleError } from "./src/helpers/errorResponse";
 let app = express();
 
 let port = process.env.APP_PORT || 3000;
@@ -12,7 +13,11 @@ app.use(
     limit: "50mb",
   })
 );
+
 routes(app);
+app.use((err, _, res, __) => {
+  handleError(err, res);
+});
 
 mongodb()
   .then(() => {

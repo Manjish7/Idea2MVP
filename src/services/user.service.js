@@ -1,6 +1,8 @@
 import { compareSync, genSaltSync, hashSync } from "bcryptjs";
 import { User } from "../models/users";
 import { signToken } from "../utils/jwt";
+import ValidationError from "../helpers/validationError";
+import NotFoundError from "../helpers/notFoundError";
 
 class UserService {
   static signup = async (data) => {
@@ -21,9 +23,10 @@ class UserService {
       const user = await User.findOne({ username: data.username }).select(
         "_id username password firstname lastname email role"
       );
-      if (!user) throw new Error("User with this credentials doesn't exists");
+      if (!user)
+        throw new NotFoundError("User with this credentials doesn't exists");
       if (!comparePasswordHash(data.password, user.password))
-        throw new Error("Invalid Credentials");
+        throw new ValidationError("Invalid Credentials");
 
       delete user._doc.password;
 
